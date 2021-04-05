@@ -1,1 +1,1 @@
-export { YourWebcomponent } from './src/your-webcomponent.js';
+export { IAPopup } from './src/ia-popup.js';
