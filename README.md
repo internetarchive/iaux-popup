@@ -1,21 +1,45 @@
-[![Build Status](https://travis-ci.com/internetarchive/iaux-your-webcomponent.svg?branch=master)](https://travis-ci.com/internetarchive/iaux-your-webcomponent) [![codecov](https://codecov.io/gh/internetarchive/iaux-your-webcomponent/branch/master/graph/badge.svg)](https://codecov.io/gh/internetarchive/iaux-your-webcomponent)
+[TODO: add GHA + badges]
+# Internet Archive Popup
 
-# Internet Archive Javascript WebComponent Template
+This is a UI component that displays extra details when hovered or clicked on.
 
-This is a base template for creating Javascript WebComponents. It is based off of the [Open WebComponents generator](https://open-wc.org/docs/development/generator/) with some IA-specific customizations and some development niceities.
+[gif]
 
 ## Usage
 
-1. Click the "Use this Template" button in GitHub to create a new repository based on this one.
-2. Clone your new repo and update the things below:
+`npm/yarn install @internetarchive/ia-popup`
+`import '@internetarchive/ia-popup`
 
-### Things to update in your copy
-1. Remove this section
-2. Search for the strings `your-webcomponent` and `YourWebComponent` and those are most of the spots that need to be updated.
-3. `README.md` (this file). Update the readme in general, but also the badge URLs
-4. `package.json` Update the name and description
-5. Rename the `your-webcomponent.ts` and its associated `.test` file
-6. Update `.travis.yml` with the proper secure key. See the [Travis docs](https://blog.travis-ci.com/2014-03-13-slack-notifications/) for more information.
+[css info]
+```
+<style>
+  .component-wrapper {
+    /* Set Height, Width */
+    /* Component will inherit height and width */
+    height: 20px;
+    width: 200px;
+  }
+  .end-of-line-peekaboo {
+    /* Set overflow to hidden if you are using `eolFade` property */
+    overflow: hidden;
+  }
+</style>
+<script>
+  import '@internetarchive/ia-popup'
+</script>
+
+<div class='component-wrapper end-of-line-peekaboo'>
+  <ia-popup
+    header="Popup Header"
+    content="Hello world this is our popup content"
+  >
+    <div slot="primary-content">
+      Must add main content into this slot as ia-popup will wrap itself around the content to set hover/click events.
+    </div>
+  </ia-popup>
+</div>
+```
+See demo for more information/details.
 
 ## Local Demo with `web-dev-server`
 ```bash
