@@ -50,6 +50,10 @@ export class IAPopup extends LitElement {
     return html`<div class="content">${this.content}</div>`;
   }
 
+  get toolTipTitle() {
+    return `${this.header} ${this.content}`;
+  }
+
   render() {
     const openClass = this.open ? 'open' : '';
     const ariaExpanded = this.open ? 'true' : 'false';
@@ -66,7 +70,7 @@ export class IAPopup extends LitElement {
       >
         ${this.eolFade ? html`<div class="cover-eol-fade"></div>` : nothing}
         <slot name="primary-content"></slot>
-        <div class="data ${openClass}" role="tooltip" tabindex="0">
+        <div class="data ${openClass}" title=${this.toolTipTitle} tabindex="0">
           ${this.header ? this.headerSection : nothing} ${this.contentSection}
         </div>
       </div>
@@ -74,6 +78,12 @@ export class IAPopup extends LitElement {
   }
 
   static get styles() {
+    const textColor = css`var(--secondaryTextColor, #767676)`;
+    const bgColor = css`var(--bcColor, white)`;
+    const borderColor = css`var(--popupBorderColor, #e9e9e9)`;
+    const boxShadowColor = css`var(--boxshadowColor, #ccc)`;
+    const popupMarginTop = css`var(--popupMarginTop, -20px)`;
+    const popupMarginLeft = css`var(--popupMarginLeft, -3px)`;
     return css`
       :host {
         cursor: pointer;
@@ -81,6 +91,7 @@ export class IAPopup extends LitElement {
         display: block;
         width: inherit;
         height: inherit;
+        font-color: ${textColor};
       }
 
       * {
@@ -97,6 +108,8 @@ export class IAPopup extends LitElement {
           rgba(255, 255, 255, 0) 60%,
           rgba(255, 255, 255, 1) 100%
         );
+        width: 100%;
+        height: 100%;
       }
 
       .data {
@@ -108,17 +121,17 @@ export class IAPopup extends LitElement {
       }
 
       .data.open {
-        position: fixed;
-        margin-top: -20px;
-        margin-left: -2px;
-        box-shadow: 1px 1px 2px #ccc;
-        border: 1px solid #e9e9e9;
+        margin-top: ${popupMarginTop};
+        margin-left: ${popupMarginLeft};
+        box-shadow: 1px 1px 2px ${boxShadowColor};
+        border: 1px solid ${borderColor};
+        word-wrap: break-word;
 
         opacity: 1;
         min-height: 30px;
         height: auto;
         padding: 5px 0 5px 5px;
-        background-color: white;
+        background-color: ${bgColor};
 
         -webkit-animation: fadein 300ms ease-out forwards;
         animation: fadein 300ms ease-out forwards;
@@ -144,6 +157,10 @@ export class IAPopup extends LitElement {
         100% {
           opacity: 0;
         }
+      }
+
+      style {
+        display: none;
       }
     `;
   }
