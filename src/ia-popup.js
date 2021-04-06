@@ -166,4 +166,4 @@ export class IAPopup extends LitElement {
   }
 }
 
-customElements.define('ia-popup', IAPopup);
+window.customElements.define('ia-popup', IAPopup);
