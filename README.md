@@ -19,8 +19,9 @@ This is a UI component that displays extra details when hovered or clicked on.
     height: 20px;
     width: 200px;
   }
-  .end-of-line-peekaboo {
-    /* Set overflow to hidden if you are using `eolFade` property */
+  .primary-content.end-of-line-peekaboo {
+    /* --- STYLE SLOT IF you want EOL fade out to work with these attrs */
+    white-space: nowrap;
     overflow: hidden;
   }
 </style>
@@ -33,12 +34,23 @@ This is a UI component that displays extra details when hovered or clicked on.
     header="Popup Header"
     content="Hello world this is our popup content"
   >
-    <div slot="primary-content">
+    <div slot="primary-content end-of-line-peekaboo">
       Must add main content into this slot as ia-popup will wrap itself around the content to set hover/click events.
     </div>
   </ia-popup>
 </div>
 ```
++ CSS Vars to customize:
+
+```
+var(--secondaryTextColor, #767676);
+var(--bcColor, white);
+var(--popupBorderColor, #e9e9e9);
+var(--boxshadowColor, #ccc);
+var(--popupMarginTop, -20px);
+var(--popupMarginLeft, -3px);
+```
+
 See demo for more information/details.
 
 ## Local Demo with `web-dev-server`

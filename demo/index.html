@@ -14,12 +14,18 @@
     }
 
     .component-container {
-      overflow: hidden;
       /* <-- set these for component on inherit */
       color: #767676;
       font-size: 16px;
       height: 18px; /* <-- set */
       width: 300px; /* <-- set */
+    }
+
+    .primary-content {
+      margin: 0;
+      /* --- STYLE SLOT IF you want EOL fade out to work with these attrs */
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     .demo-1 {
@@ -48,17 +54,32 @@
           <p>This web component is made to inherit height and width of a parent.</p>
           <pre>
             .component-container {
-              overflow: hidden;
               /* <-- set these for component on inherit */
               color: #767676;
               font-size: 16px;
-              height: 18px;
-              width: 300px;
+              height: 18px; /* <-- set */
+              width: 300px; /* <-- set */
             }
+
+            /* this is the slot with primary content */
+            .primary-content.end-of-line-fadeout {
+              margin: 0;
+              /* --- STYLE SLOT IF you want EOL fade out to work with these attrs */
+              white-space: nowrap; /* <-- set */
+              overflow: hidden; /* <-- set */
+            }
+
+            You can customize these CSS Vars, too:
+            var(--secondaryTextColor, #767676);
+            var(--bcColor, white);
+            var(--popupBorderColor, #e9e9e9);
+            var(--boxshadowColor, #ccc);
+            var(--popupMarginTop, -20px);
+            var(--popupMarginLeft, -3px);
           </pre>
           <div class="component-container">
-            <ia-popup .header=${header} .content=${content}>
-            <div slot="primary-content" class="primary-content">
+            <ia-popup .header=${header} .content=${content} title=${`${header}: ${content}`}>
+            <div slot="primary-content" class="primary-content end-of-line-fadeout">
               ${content}
             </div>
           </ia-popup>
