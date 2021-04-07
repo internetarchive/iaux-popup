@@ -49,6 +49,7 @@ var(--popupBorderColor, #e9e9e9);
 var(--boxshadowColor, #ccc);
 var(--popupMarginTop, -20px);
 var(--popupMarginLeft, -3px);
+var(--popupAnimationTiming, 100ms);
 ```
 
 See demo for more information/details.
