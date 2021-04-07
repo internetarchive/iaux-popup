@@ -6,7 +6,15 @@ export class IAPopup extends LitElement {
     return {
       content: { type: String },
       header: { type: String },
-      clickOnly: { type: Boolean },
+      clickOnly: {
+        type: Boolean,
+        converter: value => {
+          if (value === 'false') {
+            return false;
+          }
+          return true;
+        },
+      },
 
       /** private */
       open: { type: Boolean },
@@ -17,7 +25,7 @@ export class IAPopup extends LitElement {
   constructor() {
     super();
 
-    this.clickOnly = false;
+    this.clickOnly = true;
     this.open = false;
     this.eolFade = true;
     this.content = '';
@@ -56,15 +64,13 @@ export class IAPopup extends LitElement {
     return `${this.header} ${this.content}`;
   }
 
-  get tooltipBodyNoTitle() {
-    const openClass = this.open ? 'open' : '';
+  tooltipBodyNoTitle(openClass = '') {
     return html` <div class="data ${openClass}" tabindex="0">
       ${this.header ? this.headerSection : nothing} ${this.contentSection}
     </div>`;
   }
 
-  get tooltipBody() {
-    const openClass = this.open ? 'open' : '';
+  tooltipBody(openClass = '') {
     return html` <div
       class="data ${openClass}"
       title=${this.toolTipTitle}
@@ -103,7 +109,9 @@ export class IAPopup extends LitElement {
       >
         ${this.eolFade ? html`<div class="cover-eol-fade"></div>` : nothing}
         <slot name="primary-content"></slot>
-        ${hasMouseEvents ? this.tooltipBodyNoTitle : this.tooltipBody}
+        ${hasMouseEvents
+          ? this.tooltipBodyNoTitle(openClass)
+          : this.tooltipBody(openClass)}
       </div>
     `;
   }

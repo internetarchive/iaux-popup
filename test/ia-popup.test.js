@@ -21,7 +21,7 @@ describe('ia-popup', () => {
     `);
     expect(el.header).to.equal(headerStub);
     expect(el.content).to.equal(contentStub);
-    expect(el.clickOnly).to.be.false;
+    expect(el.clickOnly).to.be.true;
   });
 
   it('inherits parent height', async () => {

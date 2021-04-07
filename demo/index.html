@@ -16,11 +16,11 @@
     .component-container {
       display: inline-flex;
       margin-right: 20px;
-      /* <-- set these for component on inherit */
+      /* set these for component on inherit */
       color: #767676;
       font-size: 16px;
-      height: 18px; /* <-- set */
-      width: 200px; /* <-- set */
+      height: 18px; /* set */
+      width: 200px; /* set */
     }
 
     .primary-content {
@@ -56,19 +56,19 @@
           <pre>
             .component-container {
               display: inline-flex;
-              /* <-- set these for component on inherit */
+              /* set these for component on inherit */
               color: #767676;
               font-size: 16px;
-              height: 18px; /* <-- set */
-              width: 300px; /* <-- set */
+              height: 18px; /* set */
+              width: 300px; /* set */
             }
 
             /* this is the slot with primary content */
             .primary-content.end-of-line-fadeout {
               margin: 0;
               /* --- STYLE SLOT IF you want EOL fade out to work with these attrs */
-              white-space: nowrap; /* <-- set */
-              overflow: hidden; /* <-- set */
+              white-space: nowrap; /* set */
+              overflow: hidden; /* set */
             }
 
             You can customize these CSS Vars, too:
@@ -81,14 +81,14 @@
             var(--popupAnimationTiming, 100ms);
           </pre>
           <div class="component-container">
-            <ia-popup .header="Hover over me: " .content=${content}>
+            <ia-popup .header="Hover over me: " .content=${content} clickOnly="false">
               <div slot="primary-content" class="primary-content end-of-line-fadeout">
                 "Hover over me -- ${content}"
               </div>
             </ia-popup>
           </div>
           <div class="component-container">
-            <ia-popup .header="Click only popup: " .content=${content} title=${`Click me -- ${content}`} clickOnly="true">
+            <ia-popup .header="Click only popup: " .content=${content} title=${`Click me -- ${content}`}>
               <div slot="primary-content" class="primary-content end-of-line-fadeout">
                 ${`Click me -- ${content}`}
               </div>
