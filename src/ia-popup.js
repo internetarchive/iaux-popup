@@ -6,6 +6,7 @@ export class IAPopup extends LitElement {
     return {
       content: { type: String },
       header: { type: String },
+      clickOnly: { type: Boolean },
 
       /** private */
       open: { type: Boolean },
@@ -16,6 +17,7 @@ export class IAPopup extends LitElement {
   constructor() {
     super();
 
+    this.clickOnly = false;
     this.open = false;
     this.eolFade = true;
     this.content = '';
@@ -54,25 +56,54 @@ export class IAPopup extends LitElement {
     return `${this.header} ${this.content}`;
   }
 
+  get tooltipBodyNoTitle() {
+    const openClass = this.open ? 'open' : '';
+    return html` <div class="data ${openClass}" tabindex="0">
+      ${this.header ? this.headerSection : nothing} ${this.contentSection}
+    </div>`;
+  }
+
+  get tooltipBody() {
+    const openClass = this.open ? 'open' : '';
+    return html` <div
+      class="data ${openClass}"
+      title=${this.toolTipTitle}
+      tabindex="0"
+    >
+      ${this.header ? this.headerSection : nothing} ${this.contentSection}
+    </div>`;
+  }
+
   render() {
     const openClass = this.open ? 'open' : '';
     const ariaExpanded = this.open ? 'true' : 'false';
+    const hasMouseEvents = this.clickOnly === false;
     return html`
       <div
         class="main ${openClass}"
         aria-expanded="${ariaExpanded}"
-        @mouseover=${() => this.openPopup()}
+        @mouseover=${() => {
+          if (hasMouseEvents) {
+            this.openPopup();
+          }
+        }}
+        @focus=${() => {
+          if (hasMouseEvents) {
+            this.openPopup();
+          }
+        }}
+        @keyup=${() => {
+          if (hasMouseEvents) {
+            this.togglePopUp();
+          }
+        }}
         @mouseout=${() => this.closePopup()}
-        @focus=${() => this.openPopup()}
         @blur=${() => this.closePopup()}
         @click=${() => this.togglePopUp()}
-        @keyup=${() => this.togglePopUp()}
       >
         ${this.eolFade ? html`<div class="cover-eol-fade"></div>` : nothing}
         <slot name="primary-content"></slot>
-        <div class="data ${openClass}" title=${this.toolTipTitle} tabindex="0">
-          ${this.header ? this.headerSection : nothing} ${this.contentSection}
-        </div>
+        ${hasMouseEvents ? this.tooltipBodyNoTitle : this.tooltipBody}
       </div>
     `;
   }
@@ -84,6 +115,7 @@ export class IAPopup extends LitElement {
     const boxShadowColor = css`var(--boxshadowColor, #ccc)`;
     const popupMarginTop = css`var(--popupMarginTop, -20px)`;
     const popupMarginLeft = css`var(--popupMarginLeft, -3px)`;
+    const popupAnimationTime = css`var(--popupAnimationTime, 100ms)`;
     return css`
       :host {
         cursor: pointer;
@@ -133,8 +165,8 @@ export class IAPopup extends LitElement {
         padding: 5px 0 5px 5px;
         background-color: ${bgColor};
 
-        -webkit-animation: fadein 300ms ease-out forwards;
-        animation: fadein 300ms ease-out forwards;
+        -webkit-animation: fadein ${popupAnimationTime} ease-out forwards;
+        animation: fadein ${popupAnimationTime} ease-out forwards;
       }
 
       .data .header {

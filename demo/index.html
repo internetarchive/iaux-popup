@@ -14,11 +14,13 @@
     }
 
     .component-container {
+      display: inline-flex;
+      margin-right: 20px;
       /* <-- set these for component on inherit */
       color: #767676;
       font-size: 16px;
       height: 18px; /* <-- set */
-      width: 300px; /* <-- set */
+      width: 200px; /* <-- set */
     }
 
     .primary-content {
@@ -44,8 +46,7 @@
     import { html, render } from 'lit-html';
     import '../src/ia-popup.js';
 
-    const header = 'Testing 1-2';
-    const content = 'hover over me -- this is the body of which we are creating content. Quite fun and fancy free, I must say.';
+    const content = 'this is the body of which we are creating content. Quite fun and fancy free, I must say.';
     render(
       html`
         <section class="demo-1">
@@ -54,6 +55,7 @@
           <p>This web component is made to inherit height and width of a parent.</p>
           <pre>
             .component-container {
+              display: inline-flex;
               /* <-- set these for component on inherit */
               color: #767676;
               font-size: 16px;
@@ -78,11 +80,18 @@
             var(--popupMarginLeft, -3px);
           </pre>
           <div class="component-container">
-            <ia-popup .header=${header} .content=${content} title=${`${header}: ${content}`}>
-            <div slot="primary-content" class="primary-content end-of-line-fadeout">
-              ${content}
-            </div>
-          </ia-popup>
+            <ia-popup .header="Hover over me: " .content=${content}>
+              <div slot="primary-content" class="primary-content end-of-line-fadeout">
+                "Hover over me -- ${content}"
+              </div>
+            </ia-popup>
+          </div>
+          <div class="component-container">
+            <ia-popup .header="Click only popup: " .content=${content} title=${`Click me -- ${content}`} clickOnly="true">
+              <div slot="primary-content" class="primary-content end-of-line-fadeout">
+                ${`Click me -- ${content}`}
+              </div>
+            </ia-popup>
           </div>
         </section>
       `,
