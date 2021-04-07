@@ -36,6 +36,16 @@ export class IAPopup extends LitElement {
     this.togglePopUp = this.togglePopUp.bind(this);
   }
 
+  updated() {
+    const mouseoutEventHandler = () => this.closePopup();
+    if (this.open) {
+      this.addEventListener('mouseout', mouseoutEventHandler);
+    }
+    if (!this.open) {
+      this.removeEventListener('mouseout', mouseoutEventHandler);
+    }
+  }
+
   openPopup() {
     this.open = true;
   }
@@ -89,21 +99,23 @@ export class IAPopup extends LitElement {
         class="main ${openClass}"
         aria-expanded="${ariaExpanded}"
         @mouseover=${() => {
-          if (hasMouseEvents) {
-            this.openPopup();
+          if (!hasMouseEvents) {
+            return;
           }
+          this.openPopup();
         }}
         @focus=${() => {
-          if (hasMouseEvents) {
-            this.openPopup();
+          if (!hasMouseEvents) {
+            return;
           }
+          this.openPopup();
         }}
         @keyup=${() => {
-          if (hasMouseEvents) {
-            this.togglePopUp();
+          if (!hasMouseEvents) {
+            return;
           }
+          this.togglePopUp();
         }}
-        @mouseout=${() => this.closePopup()}
         @blur=${() => this.closePopup()}
         @click=${() => this.togglePopUp()}
       >
