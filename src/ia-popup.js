@@ -108,10 +108,10 @@ export class IAPopup extends LitElement {
         @click=${() => this.togglePopUp()}
       >
         ${this.eolFade ? html`<div class="cover-eol-fade"></div>` : nothing}
-        <slot name="primary-content"></slot>
         ${hasMouseEvents
           ? this.tooltipBodyNoTitle(openClass)
           : this.tooltipBody(openClass)}
+        <slot name="primary-content"></slot>
       </div>
     `;
   }
@@ -140,6 +140,10 @@ export class IAPopup extends LitElement {
         display: block;
       }
 
+      .main {
+        position: relative;
+      }
+
       .cover-eol-fade {
         position: absolute;
         background-image: linear-gradient(
@@ -153,7 +157,9 @@ export class IAPopup extends LitElement {
       }
 
       .data {
-        height: 1px;
+        height: inherit;
+        display: unset;
+        position: absolute;
         opacity: 0;
         overflow: hidden;
         -webkit-animation: fadeout 200ms linear forwards;

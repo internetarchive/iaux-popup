@@ -81,14 +81,14 @@
             var(--popupAnimationTiming, 100ms);
           </pre>
           <div class="component-container">
-            <ia-popup .header="Hover over me: " .content=${content} clickOnly="false">
+            <ia-popup header="Hover over me: " content=${content} clickOnly="false">
               <div slot="primary-content" class="primary-content end-of-line-fadeout">
                 "Hover over me -- ${content}"
               </div>
             </ia-popup>
           </div>
           <div class="component-container">
-            <ia-popup .header="Click only popup: " .content=${content} title=${`Click me -- ${content}`}>
+            <ia-popup header="Click only popup: " content=${content} title=${`Click me -- ${content}`}>
               <div slot="primary-content" class="primary-content end-of-line-fadeout">
                 ${`Click me -- ${content}`}
               </div>
