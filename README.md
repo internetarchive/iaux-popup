@@ -33,6 +33,7 @@ This is a UI component that displays extra details when hovered or clicked on.
   <ia-popup
     header="Popup Header"
     content="Hello world this is our popup content"
+    popupMode="clickOrHover"
   >
     <div>
       Must add main content into this slot as ia-popup will wrap itself around the content to set hover/click events.
