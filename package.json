@@ -1,6 +1,6 @@
 {
   "name": "@internetarchive/ia-popup",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A web component that displays extra info on hover/click.",
   "author": "Internet Archive",
   "license": "AGPL-3.0-only",
