@@ -123,7 +123,7 @@ export class IAPopup extends LitElement {
         ${hasMouseEvents
           ? this.tooltipBodyNoTitle(openClass)
           : this.tooltipBody(openClass)}
-        <slot name="primary-content"></slot>
+        <slot></slot>
       </div>
     `;
   }
