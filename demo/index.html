@@ -12,6 +12,30 @@
     body {
       background: #fafafa;
     }
+
+    .component-container {
+      display: inline-flex;
+      margin-right: 20px;
+      /* set these for component on inherit */
+      color: #767676;
+      font-size: 16px;
+      height: 18px; /* set */
+      width: 200px; /* set */
+    }
+
+    .primary-content {
+      margin: 0;
+      /* --- STYLE SLOT IF you want EOL fade out to work with these attrs */
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .demo-1 {
+      margin: auto;
+      width: 500px;
+      background-color: white;
+      padding: 10px;
+    }
   </style>
 </head>
 
@@ -20,16 +44,57 @@
 
   <script type="module">
     import { html, render } from 'lit-html';
-    import '../src/your-webcomponent.js';
+    import '../src/ia-popup.js';
 
-    const title = 'Hello owc World!';
+    const content = 'this is the body of which we are creating content. Quite fun and fancy free, I must say.';
     render(
       html`
-        <your-webcomponent .title=${title}>
-          <div slot="my-slot">
-            Some lightDOM slotted content
+        <section class="demo-1">
+
+          <h3>Demo</h3>
+          <p>This web component is made to inherit height and width of a parent.</p>
+          <pre>
+            .component-container {
+              display: inline-flex;
+              /* set these for component on inherit */
+              color: #767676;
+              font-size: 16px;
+              height: 18px; /* set */
+              width: 300px; /* set */
+            }
+
+            /* this is the slot with primary content */
+            .primary-content.end-of-line-fadeout {
+              margin: 0;
+              /* --- STYLE SLOT IF you want EOL fade out to work with these attrs */
+              white-space: nowrap; /* set */
+              overflow: hidden; /* set */
+            }
+
+            You can customize these CSS Vars, too:
+            var(--secondaryTextColor, #767676);
+            var(--bcColor, white);
+            var(--popupBorderColor, #e9e9e9);
+            var(--boxshadowColor, #ccc);
+            var(--popupMarginTop, -20px);
+            var(--popupMarginLeft, -3px);
+            var(--popupAnimationTiming, 100ms);
+          </pre>
+          <div class="component-container">
+            <ia-popup header="Hover over me: " content=${content} popupMode="clickOrHover">
+              <div class="primary-content end-of-line-fadeout">
+                "Hover over me -- ${content}"
+              </div>
+            </ia-popup>
           </div>
-        </your-webcomponent>
+          <div class="component-container">
+            <ia-popup header="Click only popup: " content=${content} title=${`Click me -- ${content}`}>
+              <div class="primary-content end-of-line-fadeout">
+                ${`Click me -- ${content}`}
+              </div>
+            </ia-popup>
+          </div>
+        </section>
       `,
       document.querySelector('#demo')
     );
