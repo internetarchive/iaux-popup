@@ -70,15 +70,19 @@ export class IAPopup extends LitElement {
     return `${this.header} ${this.content}`;
   }
 
-  tooltipBodyNoTitle(openClass = '') {
-    return html` <div class="popup ${openClass}" tabindex="0">
+  get openClass() {
+    return this.open ? 'open' : '';
+  }
+
+  get tooltipBodyNoTitle() {
+    return html` <div class="popup ${this.openClass}" tabindex="0">
       ${this.header ? this.headerSection : nothing} ${this.contentSection}
     </div>`;
   }
 
-  tooltipBody(openClass = '') {
+  get tooltipBody() {
     return html` <div
-      class="popup ${openClass}"
+      class="popup ${this.openClass}"
       title=${this.toolTipTitle}
       tabindex="0"
     >
@@ -87,12 +91,11 @@ export class IAPopup extends LitElement {
   }
 
   render() {
-    const openClass = this.open ? 'open' : '';
     const ariaExpanded = this.open ? 'true' : 'false';
     const hasMouseEvents = this.clickOnly === false;
     return html`
       <div
-        class="main ${openClass}"
+        class="main ${this.openClass}"
         aria-expanded="${ariaExpanded}"
         @mouseover=${() => {
           if (!hasMouseEvents) {
@@ -116,9 +119,7 @@ export class IAPopup extends LitElement {
         @click=${this.togglePopUp}
       >
         ${this.eolFade ? html`<div class="cover-eol-fade"></div>` : nothing}
-        ${hasMouseEvents
-          ? this.tooltipBodyNoTitle(openClass)
-          : this.tooltipBody(openClass)}
+        ${hasMouseEvents ? this.tooltipBodyNoTitle : this.tooltipBody}
         <slot></slot>
       </div>
     `;
