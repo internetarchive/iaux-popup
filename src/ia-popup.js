@@ -1,20 +1,16 @@
 import { html, css, LitElement } from 'lit-element';
 import { nothing } from 'lit-html';
 
+const modeTypes = {
+  clickOnly: 'clickOnly',
+  clickOrHover: 'clickOrHover',
+};
 export class IAPopup extends LitElement {
   static get properties() {
     return {
+      popupMode: { type: String },
       content: { type: String },
       header: { type: String },
-      clickOnly: {
-        type: Boolean,
-        converter: value => {
-          if (value === 'false') {
-            return false;
-          }
-          return true;
-        },
-      },
 
       /** private */
       open: { type: Boolean },
@@ -24,8 +20,10 @@ export class IAPopup extends LitElement {
 
   constructor() {
     super();
-
-    this.clickOnly = true;
+    /**
+     * @typedef {modeTypes.clickOnly | modeTypes.clickOrHover} this.popupMode
+     */
+    this.popupMode = modeTypes.clickOnly;
     this.open = false;
     this.eolFade = true;
     this.content = '';
@@ -92,7 +90,7 @@ export class IAPopup extends LitElement {
 
   render() {
     const ariaExpanded = this.open ? 'true' : 'false';
-    const hasMouseEvents = this.clickOnly === false;
+    const hasMouseEvents = this.popupMode !== modeTypes.clickOnly;
     return html`
       <div
         class="main ${this.openClass}"
