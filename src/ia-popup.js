@@ -30,10 +30,6 @@ export class IAPopup extends LitElement {
     this.eolFade = true;
     this.content = '';
     this.header = '';
-
-    this.openPopup = this.openPopup.bind(this);
-    this.closePopup = this.closePopup.bind(this);
-    this.togglePopUp = this.togglePopUp.bind(this);
   }
 
   updated() {
@@ -116,8 +112,8 @@ export class IAPopup extends LitElement {
           }
           this.togglePopUp();
         }}
-        @blur=${() => this.closePopup()}
-        @click=${() => this.togglePopUp()}
+        @blur=${this.closePopup}
+        @click=${this.togglePopUp}
       >
         ${this.eolFade ? html`<div class="cover-eol-fade"></div>` : nothing}
         ${hasMouseEvents
