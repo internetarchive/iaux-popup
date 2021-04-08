@@ -99,7 +99,7 @@ describe('ia-popup', () => {
 
     const mainElement = el.shadowRoot.querySelector('div.main');
     expect(mainElement.classList.contains('open')).to.be.true;
-    const tooltipPopup = el.shadowRoot.querySelector('.data');
+    const tooltipPopup = el.shadowRoot.querySelector('.popup');
     expect(tooltipPopup.classList.contains('open')).to.be.true;
   });
 });

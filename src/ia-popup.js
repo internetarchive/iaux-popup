@@ -71,14 +71,14 @@ export class IAPopup extends LitElement {
   }
 
   tooltipBodyNoTitle(openClass = '') {
-    return html` <div class="data ${openClass}" tabindex="0">
+    return html` <div class="popup ${openClass}" tabindex="0">
       ${this.header ? this.headerSection : nothing} ${this.contentSection}
     </div>`;
   }
 
   tooltipBody(openClass = '') {
     return html` <div
-      class="data ${openClass}"
+      class="popup ${openClass}"
       title=${this.toolTipTitle}
       tabindex="0"
     >
@@ -164,7 +164,7 @@ export class IAPopup extends LitElement {
         height: 100%;
       }
 
-      .data {
+      .popup {
         height: inherit;
         display: unset;
         position: absolute;
@@ -174,7 +174,7 @@ export class IAPopup extends LitElement {
         animation: fadeout 200ms linear forwards;
       }
 
-      .data.open {
+      .popup.open {
         margin-top: ${popupMarginTop};
         margin-left: ${popupMarginLeft};
         box-shadow: 1px 1px 2px ${boxShadowColor};
