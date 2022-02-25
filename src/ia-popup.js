@@ -1,5 +1,5 @@
-import { html, css, LitElement } from 'lit-element';
-import { nothing } from 'lit-html';
+import { html, css, LitElement } from 'lit';
+import { nothing } from 'lit/html.js';
 
 const modeTypes = {
   clickOnly: 'clickOnly',
@@ -89,12 +89,10 @@ export class IAPopup extends LitElement {
   }
 
   render() {
-    const ariaExpanded = this.open ? 'true' : 'false';
     const hasMouseEvents = this.popupMode !== modeTypes.clickOnly;
     return html`
       <div
         class="main ${this.openClass}"
-        aria-expanded="${ariaExpanded}"
         @mouseover=${() => {
           if (!hasMouseEvents) {
             return;

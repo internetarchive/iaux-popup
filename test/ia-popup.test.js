@@ -11,7 +11,7 @@ describe('ia-popup', () => {
     await expect(el).shadowDom.to.be.accessible();
   });
 
-  it('takes properties: `header`, `content`, `clickOnly`', async () => {
+  it('takes properties: `header`, `content`, `popupMode`', async () => {
     const headerStub = 'Test header';
     const contentStub = 'Content stub';
     const el = await fixture(html`
@@ -21,7 +21,7 @@ describe('ia-popup', () => {
     `);
     expect(el.header).to.equal(headerStub);
     expect(el.content).to.equal(contentStub);
-    expect(el.clickOnly).to.be.true;
+    expect(el.popupMode).to.equal('clickOnly');
   });
 
   it('inherits parent height', async () => {
